@@ -1,0 +1,45 @@
+@import '../../../styles';
+
+.sidebar {
+  width: 300px;
+  height: 700px;
+  margin: 20px 36px 20px 20px;
+  background-color: $color-surface;
+  border-radius: $radius-card;
+  padding-left: 25px;
+  padding-right: 25px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    width: 110px;
+    height: 110px;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+
+    li {
+      margin-bottom: 27px;
+
+      a {
+        display: block;
+        width: 100%;
+        text-decoration: none;
+        color: $color-text;
+        font-size: $font-h1-size;
+        font-weight: 500;
+
+        &:hover {
+          color: $color-confirmed;
+        }
+      }
+    }
+  }
+}

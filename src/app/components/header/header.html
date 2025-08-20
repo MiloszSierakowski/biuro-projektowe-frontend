@@ -1,0 +1,21 @@
+<header class="header">
+  <div class="title">Biuro projektowe w twoim zasięgu</div>
+
+  <div class="role-switch">
+    <label *ngFor="let role of roles">
+      <input
+        type="radio"
+        name="role"
+        [value]="role.value"
+        [(ngModel)]="selectedRole"
+        (change)="setRole(role.value)"
+      />
+      {{ role.label }}
+    </label>
+  </div>
+
+  <div class="user-actions">
+    <button class="user">Użytkownik</button>
+    <button class="logout">Wyloguj</button>
+  </div>
+</header>
