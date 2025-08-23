@@ -1,5 +1,52 @@
-<div class="agreements-wrapper">
-  <div class="agreements-box">
-    <p>Wybierz działkę aby zobaczyć zawartość</p>
+<!-- PUSTY WIDOK gdy brak wyboru działki -->
+<div class="card empty" *ngIf="!selectedPlotId">
+  <div class="empty-inner">
+    <p>Wybierz działkę w górnym pasku, aby zobaczyć ustalenia</p>
+  </div>
+</div>
+
+<!-- LISTA + SZCZEGÓŁY gdy działka wybrana -->
+<div class="card grid" *ngIf="selectedPlotId">
+  <div class="left">
+    <div class="section-title">Ustalenia w sprawie działki</div>
+
+    <div class="table">
+      <div class="thead">
+        <div class="th nr">Nr.</div>
+        <div class="th name">Nazwa</div>
+      </div>
+
+      <div
+        class="tr"
+        *ngFor="let m of meetings"
+        (click)="onClickRow(m)"
+        [class.active]="selectedMeeting?.id === m.id"
+      >
+        <div class="td nr">{{ pad(m.id) }}</div>
+        <div class="td name">{{ m.name }}</div>
+      </div>
+
+      <div class="empty-list" *ngIf="meetings.length === 0">
+        Brak spotkań dla tej działki.
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="meta">
+      <div class="row">
+        <span class="meta-label">Działka:</span>
+        <input class="meta-input" [value]="selectedPlotId || ''" readonly />
+      </div>
+      <div class="row">
+        <span class="meta-label">Data:</span>
+        <input class="meta-input" [value]="selectedMeeting?.date || ''" readonly />
+      </div>
+    </div>
+
+    <div class="desc">
+      <label class="meta-label">Opis:</label>
+      <textarea class="desc-area" [value]="selectedMeeting?.description || ''" readonly></textarea>
+    </div>
   </div>
 </div>
