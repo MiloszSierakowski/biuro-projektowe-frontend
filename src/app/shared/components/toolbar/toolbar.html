@@ -1,41 +1,17 @@
-<div class="toolbar" *ngIf="showSelect || showSearch || showAdminControls">
-  <ng-container *ngIf="showSearch">
-    <input type="text" placeholder="Szukaj..." />
-    <select>
-      <option value="nazwa">Sortuj po nazwie</option>
+<header class="toolbar">
+  <div class="toolbar__row">
+    <label class="toolbar__label">Wybrana działka:</label>
+
+    <select
+      class="toolbar__select"
+      [(ngModel)]="selectedPlot"
+      (ngModelChange)="onPlotChange($event)"
+      name="plot"
+    >
+      <option [ngValue]="null">Select</option>
+      <option *ngFor="let p of plots" [ngValue]="p">
+        {{ p.name }}
+      </option>
     </select>
-    <button>Filtry</button>
-  </ng-container>
-
-  <ng-container *ngIf="showSelect">
-    <label>
-      Wybrana działka:
-      <select (change)="onPlotChange($event)">
-        <option value="">-- wybierz --</option>
-        <option *ngFor="let plot of plots" [value]="plot.id">{{ plot.name }}</option>
-      </select>
-    </label>
-    <button *ngIf="showEdit">Edytuj</button>
-  </ng-container>
-
-  <ng-container *ngIf="showAddService">
-    <button>Dodaj usługę</button>
-  </ng-container>
-
-  <ng-container *ngIf="showAddToProject">
-    <button (click)="onAddToProjectClick()">Dodaj do projektu</button>
-  </ng-container>
-
-  <ng-container *ngIf="showSaveCancel">
-    <button>Zapisz</button>
-    <button (click)="onCancelClick()">Cofnij</button>
-  </ng-container>
-
-  <ng-container *ngIf="showAdminControls">
-    <input type="text" placeholder="Szukaj..." />
-    <select>
-      <option value="nazwa">Sortuj</option>
-    </select>
-    <button>Dodaj nowe biuro</button>
-  </ng-container>
-</div>
+  </div>
+</header>

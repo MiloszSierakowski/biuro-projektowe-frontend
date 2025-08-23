@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Plot} from '../../../models/plot';
+import {ToolbarService} from '../../../services/toolbar.service';
+import {SelectionService} from '../../../services/selection.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -6,60 +9,29 @@ import { Component, Input } from '@angular/core';
   templateUrl: './toolbar.html',
   styleUrls: ['./toolbar.scss'],
 })
-export class ToolbarComponent {
-  @Input() role: 'client' | 'employee' | 'owner' | 'admin' = 'client';
-  @Input() screen: string = '';
+export class ToolbarComponent implements OnInit {
+  @Input() role?: 'CLIENT' | 'EMPLOYEE' | 'OWNER' | string;
+  @Input() screen?: string;
 
-  isItemSelected: boolean = false;
-  projectSelected: boolean = false;
-  addToProjectClicked: boolean = false;
+  plots: Plot[] = [];
+  selectedPlot: Plot | null = null; // wiążemy cały obiekt
 
-  // Sztywne działki testowe
-  plots = [
-    { id: 'p1', name: 'Działka 101/2' },
-    { id: 'p2', name: 'Działka 203/4' },
-    { id: 'p3', name: 'Działka 305/1' },
-  ];
+  constructor(
+    private toolbarService: ToolbarService,
+    private selectionService: SelectionService
+  ) {}
 
-  get showSelect(): boolean {
-    return ['postepy', 'dzialka', 'projekt', 'uslugi', 'podsumowanie', 'ustalenia', 'pracownik'].includes(this.screen);
+  ngOnInit(): void {
+    // 1) Załaduj listę działek z mocka
+    this.plots = this.toolbarService.getPlots();
+
+    // 2) Jednorazowo odtwórz wybór (po odświeżeniu)
+    this.selectedPlot = this.selectionService.getSelectedPlotSnapshot();
   }
 
-  get showEdit(): boolean {
-    return ['dzialka', 'projekt'].includes(this.screen) && this.isItemSelected;
-  }
-
-  get showAddService(): boolean {
-    return this.screen === 'ustalenia' && this.isItemSelected && ['owner', 'employee'].includes(this.role);
-  }
-
-  get showAddToProject(): boolean {
-    return this.screen === 'uslugi' && this.role === 'owner' && this.projectSelected && !this.addToProjectClicked;
-  }
-
-  get showSaveCancel(): boolean {
-    return this.screen === 'uslugi' && this.role === 'owner' && this.addToProjectClicked;
-  }
-
-  get showSearch(): boolean {
-    return this.screen === 'wyszukaj' && ['employee', 'owner'].includes(this.role);
-  }
-
-  get showAdminControls(): boolean {
-    return this.role === 'admin' && ['biura', 'uzytkownicy'].includes(this.screen);
-  }
-
-  onPlotChange(event: Event) {
-    const value = (event.target as HTMLSelectElement).value;
-    this.isItemSelected = !!value;
-    this.projectSelected = !!value;
-  }
-
-  onAddToProjectClick() {
-    this.addToProjectClicked = true;
-  }
-
-  onCancelClick() {
-    this.addToProjectClicked = false;
+  // Wywoływane tylko po świadomej zmianie użytkownika
+  onPlotChange(plot: Plot | null): void {
+    this.selectedPlot = plot;
+    this.selectionService.setSelectedPlot(plot);
   }
 }
