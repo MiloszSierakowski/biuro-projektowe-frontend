@@ -1,9 +1,8 @@
 <header class="toolbar">
-  <div class="toolbar__row">
-    <label class="toolbar__label">Wybrana działka:</label>
+  <div class="row">
+    <div class="label">Wybrana działka:</div>
 
     <select
-      class="toolbar__select"
       [(ngModel)]="selectedPlot"
       (ngModelChange)="onPlotChange($event)"
       name="plot"

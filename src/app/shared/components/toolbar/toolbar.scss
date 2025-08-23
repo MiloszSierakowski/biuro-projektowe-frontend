@@ -10,29 +10,24 @@
   align-items: center;
   gap: 16px;
 
-  input[type='text'] {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-  }
-
-  select {
-    width: 300px;
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-  }
-
-  button {
-    padding: 8px 16px;
-    border: none;
-    background-color: $color-confirmed;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: darken($color-confirmed, 5%);
-    }
-  }
 }
+
+.row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+}
+
+.label{
+  font-size: $font-h2-size;
+}
+
+select {
+  width: 300px;
+  padding: 6px 10px;
+  border-radius: 36px;
+  border: 2px solid #000000;
+  font-size: $font-h2-size;
+}
+
