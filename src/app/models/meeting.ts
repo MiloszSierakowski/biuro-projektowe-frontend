@@ -4,4 +4,5 @@ export interface Meeting {
   name: string;          // np. "Spotkanie 1"
   date: string;          // np. "2025-06-01" (ISO string)
   description: string;   // opis ustaleń
+  client: string;        // nazwa klienta
 }
