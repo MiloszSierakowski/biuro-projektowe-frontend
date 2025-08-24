@@ -12,7 +12,7 @@ export class AgreementsService {
   }
 
   // Zwraca spotkania dla konkretnej działki (na razie filtr po kliencie)
-  getMeetings(plotId: number) {
+  getMeetings(plotId: number | null) {
     const plot = mockPlots.find(p => p.id === plotId);
     if (!plot) return [];
 

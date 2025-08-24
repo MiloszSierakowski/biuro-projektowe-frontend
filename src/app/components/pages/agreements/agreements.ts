@@ -15,7 +15,7 @@ import { Meeting } from '../../../models/meeting';
   styleUrls: ['./agreements.scss']
 })
 export class AgreementsComponent implements OnInit, OnDestroy {
-  selectedPlotId: string | number | null = null;
+  selectedPlot: Plot | null = null;
 
   meetings: Meeting[] = [];
   selectedMeeting: Meeting | null = null;
@@ -30,13 +30,14 @@ export class AgreementsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Reaguj na wybór działki z Toolbara (SelectionService trzyma cały Plot)
     this.sub = this.selection.getSelectedPlot$().subscribe((plot: Plot | null) => {
-      this.selectedPlotId = plot ? plot.id : null;
+      this.selectedPlot = plot;
+      const selectedPlotID = this.selectedPlot ? this.selectedPlot.id : null;
       this.selectedMeeting = null;
       this.meetings = [];
 
       // gdy jest wybrana działka – wczytaj spotkania z mocka
-      if (this.selectedPlotId !== null) {
-        this.meetings = this.agreementsSvc.getMeetings(this.selectedPlotId);
+      if (selectedPlotID !== null) {
+        this.meetings = this.agreementsSvc.getMeetings(selectedPlotID);
       }
     });
   }

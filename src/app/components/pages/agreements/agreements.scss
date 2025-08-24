@@ -1,112 +1,154 @@
 @import '../../../../styles';
 
+/* wrapper strony */
 .agreements {
-  padding-top: 16px;
   height: 646px;
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: stretch;
+  padding-top: 16px;
 }
 
+/* karta tła */
 .agreements-box {
   width: 100%;
   height: 646px;
-  background-color: $color-surface;
+  background: $color-surface;
   border-radius: $radius-card;
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
   justify-content: center;
-  align-items: center;
-  font-size: $font-h1-size;
-  text-align: center;
 }
 
-.card {
-  border: 1px solid #e0e0e0;
-  border-radius: 20px;
-  background: #FDFAFA; /* zgodnie z ustaleniami */
-  padding: 12px;
-}
-
-.grid {
+/* podpowiedź gdy brak wyboru */
+.empty-tip {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  place-items: center;
+  text-align: center;
+  font-size: $font-h1-size;
 }
 
-.left .section-title {
-  font-weight: 600;
-  margin-bottom: 8px;
+.panel-title {
+  text-align: left;
+  padding-left: 30px;
+  font-size: $font-h1-size;
 }
 
-.table {
-  border: 1px solid #ddd;
-  border-radius: 12px;
+/* ====== GŁÓWNA SIATKA PANELU ====== */
+.panel-grid {
+  /* dwie kolumny: lewa ~50%, prawa ~50% */
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  /* dwie rzędy: meta na górze, opis na dole */
+  grid-template-rows: 220px 1fr;
+  gap: 0;
+  height: 80%;
+  border: 2px solid #000;
   overflow: hidden;
+  background: #fff;
+}
 
-  .thead, .tr {
+/* ====== LEWA KOLUMNA (lista) ====== */
+.left {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3; /* lewa kolumna rozciąga się przez oba rzędy */
+  border-right: 2px solid #000;
+  background: white;
+  font-size: $font-h2-size;
+  font-weight: 600;
+
+
+  .thead,
+  .tr {
     display: grid;
+    border-bottom: 2px solid $color-background;
     grid-template-columns: 80px 1fr;
     align-items: center;
   }
 
   .thead {
-    background: #f4f4f4;
-    font-weight: 600;
-    .th { padding: 8px 10px; }
+    background: #f1f1f1;
+    font-weight: 700;
+
+    .th {
+      padding: 14px 12px;
+      font-size: 18px;
+    }
   }
 
   .tr {
     cursor: pointer;
-    .td { padding: 8px 10px; }
-    &:nth-child(even) { background: #fafafa; }
-    &.active { background: #eaf3ff; }
-    &:hover { background: #f0f7ff; }
+
+    .td {
+      padding: 16px 12px;
+      font-size: 18px;
+    }
+
+    &:nth-child(even) {
+      background: #fafafa;
+    }
+
+    &.active {
+      background: #eaf3ff;
+    }
+
+    &:hover {
+      background: #f0f7ff;
+    }
   }
 
-  .nr { text-align: center; width: 80px; }
+  .nr {
+    text-align: center;
+  }
 
-  .empty-list {
-    padding: 12px;
-    color: #777;
+  .name {
+    text-align: left;
   }
 }
 
-.right {
-  .meta {
-    display: grid;
-    gap: 8px;
-    margin-bottom: 10px;
+/* ====== PRAWA GÓRA (Klient / Data) ====== */
+.right-top {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  background: $color-background;
+  padding: 18px 18px 10px;
+  display: grid;
+  gap: 14px;
+  border-bottom: 2px solid #000;
 
-    .row {
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .meta-label { font-weight: 600; }
-    .meta-input {
-      width: 100%;
-      padding: 8px 10px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      background: #fff;
-    }
+  .row {
+    height: 60%;
+    padding-left: 10px;
+    display: flex;
+    background: $color-surface;
+    border-radius: $radius-card;
+    align-items: center;
+    gap: 12px;
+    font-size: $font-h2-size;
   }
 
-  .desc {
-    display: grid;
-    gap: 6px;
+  .ctrl {
+    font-size: $font-h2-size;
+    padding: 8px 14px;
+    border: 0 solid white;
+  }
+}
 
-    .desc-area {
-      width: 100%;
-      min-height: 140px;
-      padding: 10px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      background: #fff;
-      resize: vertical;
-    }
+/* ====== PRAWA DÓŁ (Opis) ====== */
+.right-bottom {
+  background: #fff;
+  padding: 12px 12px 16px;
+  display: grid;
+  font-size: $font-h2-size;
+
+  .area {
+    resize: none;
+    overflow-y: auto;
+    user-select: text;
+    border: 0 solid white;
+    font-size: $font-h2-size;
+    outline: none;
+    box-shadow: none;
   }
 }
