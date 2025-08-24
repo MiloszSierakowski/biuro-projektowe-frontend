@@ -6,11 +6,6 @@ import {mockPlots, mockMeetings} from '../mocks/mock';
 })
 export class AgreementsService {
 
-  // Zwraca listę działek
-  getPlots() {
-    return mockPlots;
-  }
-
   // Zwraca spotkania dla konkretnej działki (na razie filtr po kliencie)
   getMeetings(plotId: number | null) {
     const plot = mockPlots.find(p => p.id === plotId);

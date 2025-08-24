@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import { Component } from '@angular/core';
+import { PermissionService, Role } from '../../services/permission.service';
 
 @Component({
   selector: 'app-header',
@@ -7,19 +8,20 @@ import {Component, EventEmitter, Output} from '@angular/core';
   styleUrls: ['./header.scss'],
 })
 export class HeaderComponent {
-  @Output() roleChange = new EventEmitter<string>();
-
-  selectedRole: string = 'client';
+  selectedRole: Role = null;
 
   roles = [
-    { label: 'Klient', value: 'client' },
-    { label: 'Pracownik', value: 'employee' },
-    { label: 'Właściciel', value: 'owner' },
-    { label: 'Administrator', value: 'admin' }
+    { label: 'Klient', value: 'CLIENT' },
+    { label: 'Pracownik', value: 'WORKER' },
+    { label: 'Właściciel', value: 'OWNER' },
+    { label: 'Administrator', value: 'ADMIN' }
   ];
 
-  setRole(role: string) {
-    this.selectedRole = role;
-    this.roleChange.emit(role);
+  constructor(private permissionService: PermissionService) {}
+
+  setRole(role: string): void {
+    this.selectedRole = role as Role;
+    this.permissionService.setRole(role as Role);
   }
+
 }

@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {PermissionService} from '../../services/permission.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,7 +8,6 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./sidebar.scss'],
 })
 export class SidebarComponent implements OnInit {
-  @Input() role: 'client' | 'employee' | 'owner' | 'admin' = 'client';
   navLinks: { label: string; path: string }[] = [];
 
   private readonly NAV_LINKS: Record<string, { label: string; path: string }[]> = {
@@ -22,7 +22,7 @@ export class SidebarComponent implements OnInit {
       {label: 'Ustalenia', path: '/agreements'},
       {label: 'Kontakt', path: '/kontakt'},
     ],
-    employee: [
+    worker: [
       {label: 'Menu główne', path: '/menu'},
       {label: 'Wyszukaj', path: '/wyszukaj'},
       {label: 'Postępy prac', path: '/postepy'},
@@ -51,15 +51,18 @@ export class SidebarComponent implements OnInit {
     ],
   };
 
+  constructor(private permissionService: PermissionService) {
+  }
+
   ngOnInit(): void {
-    this.updateNav();
-  }
+    this.permissionService.role$.subscribe((role) => {
+      if (!role) {
+        this.navLinks = [];
+        return;
+      }
 
-  ngOnChanges(): void {
-    this.updateNav();
-  }
-
-  private updateNav() {
-    this.navLinks = this.NAV_LINKS[this.role];
+      const key = role.toLowerCase();
+      this.navLinks = this.NAV_LINKS[key] || [];
+    });
   }
 }
