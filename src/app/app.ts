@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   role: 'client' | 'employee' | 'owner' | 'admin' = 'client';
-  screen: string = 'uslugi';
+  screen: string = 'agreements';
 
   onRoleChange(role: string) {
     this.role = role as 'client' | 'employee' | 'owner' | 'admin';

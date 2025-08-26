@@ -1,7 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Plot} from '../../../models/plot';
-import {ToolbarService} from '../../../services/toolbar.service';
-import {SelectionService} from '../../../services/selection.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Plot } from '../../../models/plot';
+import { ToolbarApiService } from './toolbar-api.service';
+import { SelectionService } from '../../../core/services/selection.service';
+import { PermissionService, Role } from '../../../core/services/permission.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -10,26 +12,45 @@ import {SelectionService} from '../../../services/selection.service';
   styleUrls: ['./toolbar.scss'],
 })
 export class ToolbarComponent implements OnInit {
-  @Input() role?: 'CLIENT' | 'EMPLOYEE' | 'OWNER' | string;
-  @Input() screen?: string;
-
   plots: Plot[] = [];
-  selectedPlot: Plot | null = null; // wiążemy cały obiekt
+  selectedPlot: Plot | null = null;
+
+  currentRole: Role = null;
 
   constructor(
-    private toolbarService: ToolbarService,
-    private selectionService: SelectionService
+    private toolbarService: ToolbarApiService,
+    private selectionService: SelectionService,
+    private permissionService: PermissionService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    // 1) Załaduj listę działek z mocka
+    // Pobranie ról z serwisu
+    this.permissionService.role$.subscribe((role) => {
+      this.currentRole = role;
+    });
+
+    // Załaduj działki
     this.plots = this.toolbarService.getPlots();
 
-    // 2) Jednorazowo odtwórz wybór (po odświeżeniu)
+    // Przywróć wybraną działkę (jeśli była)
     this.selectedPlot = this.selectionService.getSelectedPlotSnapshot();
   }
 
-  // Wywoływane tylko po świadomej zmianie użytkownika
+  // Czy pokazać przycisk dodawania usługi
+  showAddServiceButton(): boolean {
+    const currentPath = this.router.url;
+    const hasRole = this.permissionService.hasRole('WORKER', 'OWNER');
+
+    console.log('🔎 DEBUG showAddServiceButton()');
+    console.log('currentPath:', currentPath);
+    console.log('currentRole:', this.currentRole);
+    console.log('hasRole:', hasRole);
+
+    return hasRole && currentPath.includes('agreements');
+  }
+
+  // Zmiana działki
   onPlotChange(plot: Plot | null): void {
     this.selectedPlot = plot;
     this.selectionService.setSelectedPlot(plot);

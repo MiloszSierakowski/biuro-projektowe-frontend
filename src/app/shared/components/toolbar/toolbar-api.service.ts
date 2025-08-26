@@ -1,11 +1,11 @@
-// src/app/services/toolbar.service.ts
+// src/app/services/toolbar-api.service.ts
 import {Injectable} from '@angular/core';
-import {mockPlots} from '../mocks/mock';
-import {Plot} from '../models/plot';
+import {mockPlots} from '../../../mocks/mock';
+import {Plot} from '../../../models/plot';
 
 
 @Injectable({providedIn: 'root'})
-export class ToolbarService {
+export class ToolbarApiService {
   // Teraz mock; później podmienimy na HttpClient.get<Plot[]>() z backendu
   getPlots(): Plot[] {
     return mockPlots;

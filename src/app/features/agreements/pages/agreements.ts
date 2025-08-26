@@ -2,8 +2,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { SelectionService } from '../../../services/selection.service';
-import { AgreementsService } from '../../../services/agreements.service';
+import { SelectionService } from '../../../core/services/selection.service';
+import { AgreementsApiService } from '../services/agreements-api.service';
 
 import { Plot } from '../../../models/plot';
 import { Meeting } from '../../../models/meeting';
@@ -24,7 +24,7 @@ export class AgreementsComponent implements OnInit, OnDestroy {
 
   constructor(
     private selection: SelectionService,
-    private agreementsSvc: AgreementsService
+    private agreementsSvc: AgreementsApiService
   ) {}
 
   ngOnInit(): void {

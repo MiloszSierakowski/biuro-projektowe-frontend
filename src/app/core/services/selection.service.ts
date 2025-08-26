@@ -1,7 +1,7 @@
 // src/app/services/selection.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Plot } from '../models/plot';
+import { Plot } from '../../models/plot';
 
 @Injectable({ providedIn: 'root' })
 export class SelectionService {

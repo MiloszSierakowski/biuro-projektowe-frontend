@@ -1,7 +1,6 @@
 <header class="toolbar">
   <div class="row">
     <div class="label">Wybrana działka:</div>
-
     <select
       [(ngModel)]="selectedPlot"
       (ngModelChange)="onPlotChange($event)"
@@ -12,5 +11,6 @@
         {{ p.name }}
       </option>
     </select>
+    <button *ngIf="showAddServiceButton()">Dodaj usługę</button>
   </div>
 </header>

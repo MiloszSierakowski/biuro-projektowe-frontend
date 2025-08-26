@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PermissionService, Role } from '../../services/permission.service';
+import { PermissionService, Role } from '../../../core/services/permission.service';
 
 @Component({
   selector: 'app-header',

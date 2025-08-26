@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {PermissionService} from '../../services/permission.service';
+import {PermissionService} from '../../../core/services/permission.service';
 
 @Component({
   selector: 'app-sidebar',

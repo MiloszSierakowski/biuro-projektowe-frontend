@@ -5,10 +5,10 @@ import {FormsModule} from '@angular/forms';
 
 import {AppRoutingModule} from './app-routing-module';
 import {AppComponent} from './app';
-import {SidebarComponent} from './components/sidebar/sidebar';
-import {HeaderComponent} from './components/header/header';
+import {SidebarComponent} from './shared/components/sidebar/sidebar';
+import {HeaderComponent} from './shared/components/header/header';
 import {ToolbarComponent} from './shared/components/toolbar/toolbar';
-import {AgreementsComponent} from './components/pages/agreements/agreements';
+import {AgreementsComponent} from './features/agreements/pages/agreements';
 
 @NgModule({
   declarations: [

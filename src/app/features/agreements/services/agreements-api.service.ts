@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {mockPlots, mockMeetings} from '../mocks/mock';
+import {mockPlots, mockMeetings} from '../../../mocks/mock';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AgreementsService {
+export class AgreementsApiService {
 
   // Zwraca spotkania dla konkretnej działki (na razie filtr po kliencie)
   getMeetings(plotId: number | null) {
