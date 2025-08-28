@@ -111,27 +111,61 @@
 .right-top {
   grid-column: 2 / 3;
   grid-row: 1 / 2;
+  display: grid;
+  grid-template-columns: 85% 15%; // kolumna z polem i kolumna z przyciskiem
+  grid-template-rows: repeat(3, 40px); // 3 rzędy
+  gap: 14px;
   background: $color-background;
   padding: 18px 18px 10px;
-  display: grid;
-  gap: 14px;
   border-bottom: 2px solid #000;
 
   .row {
-    height: 60%;
-    padding-left: 10px;
+    width: fit-content;
+    max-width: 100%;
     display: flex;
+    align-items: center;
     background: $color-surface;
     border-radius: $radius-card;
-    align-items: center;
-    gap: 12px;
     font-size: $font-h2-size;
+    padding-left: 10px;
+    padding-right: 10px;
+    gap: 12px;
+
+    .label {
+      white-space: nowrap;
+    }
+
+    .ctrl {
+      width: 80%;
+      flex-grow: 1;
+      border-radius: $radius-card;
+      font-size: $font-h2-size;
+      padding: 8px 14px;
+      border: 0 solid white;
+    }
+
+    .button {
+      width: 33px;
+      height: 33px;
+      background: $color-background;
+      border: 2px solid #000;
+      padding: 0;
+      cursor: pointer;
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
   }
 
-  .ctrl {
-    font-size: $font-h2-size;
-    padding: 8px 14px;
-    border: 0 solid white;
+  .buttons {
+    gap: 0;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    height: 100%;
+    box-sizing: border-box;
   }
 }
 

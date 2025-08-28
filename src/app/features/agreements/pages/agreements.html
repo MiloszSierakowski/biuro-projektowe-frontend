@@ -24,30 +24,76 @@
         </div>
       </section>
 
-      <!-- PRAWA GÓRA: META -->
-      <section class="right-top">
-        <div class="row">
-          <span class="label">Klient:</span>
-          <input class="ctrl" [value]="(selectedPlot ? selectedPlot.client : '')" readonly/>
-        </div>
+      <!-- PRAWA GÓRA: META (formularz) -->
+      <form [formGroup]="form">
+        <section class="right-top">
+          <!-- PRACOWNIK -->
+          <div class="row" style="grid-column: 1; grid-row: 1;">
+            <span class="label">Pracownik:</span>
+            <input
+              class="ctrl"
+              formControlName="employee"
+              readonly
+            />
+          </div>
 
-        <div class="row">
-          <span class="label">Data:</span>
-          <input class="ctrl" [value]="selectedMeeting?.date || ''" readonly/>
-        </div>
-      </section>
+          <!-- DYSKIETKA -->
+          <div [ngClass]="{ 'row': true, 'buttons': isEditMode }"
+               style="grid-column: 2; grid-row: 1; border-radius: 9px;"
+               *ngIf="(isCreating || isEditMode) && agreementsUi.showSaveButton()"
+          >
+            <button
+              type="button"
+              class="button"
+              (click)="saveMeeting()"
+              title="Zapisz ustalenia"
+            >
+              <img src="assets/save.png" alt="Zapisz"/>
+            </button>
 
-      <!-- PRAWA DÓŁ: OPIS -->
-      <section class="right-bottom">
-        <textarea
-          id="meetingDescription"
-          name="meetingDescription"
-          class="area"
-          readonly
-          [value]="selectedMeeting ? selectedMeeting.description : 'Opis:'"
-        ></textarea>
-      </section>
+            <button
+              *ngIf="isEditMode"
+              type="button"
+              class="button"
+              (click)="deleteMeeting()"
+              title="Usuń ustalenie"
+            >
+              <img src="assets/delete.png" alt="Usuń"/>
+            </button>
+          </div>
 
+          <!-- KLIENT -->
+          <div class="row" style="grid-column: 1 / 3; grid-row: 2;">
+            <span class="label">Klient:</span>
+            <input
+              class="ctrl"
+              formControlName="client"
+              readonly
+            />
+          </div>
+
+          <!-- DATA -->
+          <div class="row" style="grid-column: 1 / 3; grid-row: 3;">
+            <span class="label">Data:</span>
+            <input
+              class="ctrl"
+              type="date"
+              formControlName="date"
+              [readonly]="form.get('date')?.disabled"
+            />
+          </div>
+        </section>
+
+
+        <!-- PRAWA DÓŁ: OPIS -->
+        <section class="right-bottom">
+          <textarea
+            class="area"
+            formControlName="description"
+            [readonly]="form.get('description')?.disabled"
+          ></textarea>
+        </section>
+      </form>
     </div>
   </div>
 </div>
