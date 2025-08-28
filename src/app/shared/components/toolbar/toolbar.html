@@ -11,6 +11,6 @@
         {{ p.name }}
       </option>
     </select>
-    <button *ngIf="showAddServiceButton()">Dodaj usługę</button>
+    <button *ngIf="ui.showAddServiceButton()" (click)="onAddServiceClick()">Dodaj usługę</button>
   </div>
 </header>
